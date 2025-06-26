@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chess Course Data Viewer</title>
+</head>
+<body>
+  <h1>Chess by Panchatantra - MongoDB Viewer</h1>
+
+  <div id="content">
+    <section>
+      <h2>Chapters</h2>
+      <ul id="chapters"></ul>
+    </section>
+
+    <section>
+      <h2>Modules</h2>
+      <ul id="modules"></ul>
+    </section>
+
+    <section>
+      <h2>Stories</h2>
+      <ul id="stories"></ul>
+    </section>
+
+    <section>
+      <h2>Principles</h2>
+      <ul id="principles"></ul>
+    </section>
+
+    <section>
+      <h2>Story Mappings</h2>
+      <ul id="story-mappings"></ul>
+    </section>
+
+    <section>
+      <h2>Chess Puzzles</h2>
+      <ul id="puzzles"></ul>
+    </section>
+  </div>
+
+  <script>
+    const endpoints = [
+      { url: "/chapters", id: "chapters" },
+      { url: "/modules", id: "modules" },
+      { url: "/stories", id: "stories" },
+      { url: "/principles", id: "principles" },
+      { url: "/story-mappings", id: "story-mappings" },
+      { url: "/puzzles", id: "puzzles" }
+    ];
+
+    endpoints.forEach(({ url, id }) => {
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById(id);
+          data.forEach(item => {
+            const li = document.createElement("li");
+            li.textContent = JSON.stringify(item); // or customize: item.chapter_title, etc.
+            list.appendChild(li);
+          });
+        })
+        .catch(err => {
+          console.error(`Error fetching ${url}:`, err);
+        });
+    });
+  </script>
+</body>
+</html>

@@ -11,6 +11,14 @@ const uri = "mongodb://akshayas:Shreya%402406@ac-ei96flr-shard-00-00.xib2hb8.mon
 
 const client = new MongoClient(uri);
 
+const path = require("path");
+
+// Serve index.html from current directory
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "index.html"));
+});
+
+
 async function connectDB() {
   try {
     await client.connect();
